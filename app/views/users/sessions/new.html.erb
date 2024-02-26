@@ -1,0 +1,67 @@
+<div >
+    <div class="absolute inset-0">
+        <%= image_tag("auth/bg-gradient.png", alt: "image", class: "h-full w-full object-cover") %>
+    </div>
+    <div class="relative flex min-h-screen items-center justify-center px-6 py-10 dark:bg-[#060818] sm:px-16" style="background-image: url(<%= asset_path('auth/map.png') %>); background-cover: cover; background-position: center; background-repeat: no-repeat;">
+        <%= image_tag("auth/coming-soon-object1.png", alt: "image", class: "absolute left-0 top-1/2 h-full max-h-[893px] -translate-y-1/2") %>
+        <%= image_tag("auth/coming-soon-object2.png", alt: "image", class: "absolute left-24 top-0 h-40 md:left-[30%]") %>
+        <%= image_tag("auth/coming-soon-object3.png", alt: "image", class: "absolute right-0 top-0 h-[300px]") %>
+        <%= image_tag("auth/polygon-object.svg", alt: "image", class: "absolute bottom-0 end-[28%]") %>
+
+        <div class="relative w-full max-w-[870px] rounded-md bg-[linear-gradient(45deg,#fff9f9_0%,rgba(255,255,255,0)_25%,rgba(255,255,255,0)_75%,_#fff9f9_100%)] p-2 dark:bg-[linear-gradient(52.22deg,#0E1726_0%,rgba(14,23,38,0)_18.66%,rgba(14,23,38,0)_51.04%,rgba(14,23,38,0)_80.07%,#0E1726_100%)]">
+            <div class="relative flex flex-col justify-center rounded-md bg-white/60 backdrop-blur-lg dark:bg-black/50 px-6 lg:min-h-[758px] py-20">
+
+                <div class="mx-auto w-full max-w-[440px]">
+                    <div class="mb-10">
+                        <h1 class="text-3xl font-extrabold uppercase !leading-snug text-primary md:text-4xl">Prihlásiť sa</h1>
+                        <p class="text-base font-bold leading-normal text-white-dark">Pre prihlásenie zadajte svoj email a heslo</p>
+                    </div>
+                    
+        
+                     <%= render "shared/alerts"%>
+
+
+
+                  
+
+                   <%= form_for(resource, as: resource_name, url: session_path(resource_name), html: { novalidate: true, class: "space-y-5 dark:text-white", 'data-turbo': "false" }) do |f| %>
+
+                        <div>
+                            <%= f.label :email, class: "block text-white-dark" %>
+                            <div class="relative text-white-dark">
+                                <%= f.email_field :email, autofocus: true, autocomplete: "email", class: "form-input ps-10 placeholder:text-white-dark" %>
+                            </div>
+                        </div>
+                        <div>
+                            <%= f.label :password, class: "block text-white-dark" %>
+                            <div class="relative text-white-dark">
+                                <%= f.password_field :password, autocomplete: "current-password",  class: "form-input ps-10 placeholder:text-white-dark" %>
+                            </div>
+                        </div>
+             
+                        <% if devise_mapping.rememberable? %>
+
+                        <div>
+                            <label class="flex cursor-pointer">
+                                <%= f.check_box :remember_me, class: "form-checkbox items-center bg-white dark:bg-black" %>
+                                <%= f.label :remember_me, class: "flex cursor-pointer items-center text-white-dark" %>
+
+        
+                            </label>
+                        </div>
+                          <% end %>
+                        <div>
+                            <%= f.submit "Prihlásiť sa", class: "btn btn-gradient !mt-6 w-full border-0 uppercase shadow-[0_10px_20px_-10px_rgba(67,97,238,0.44)]" %>
+                        </div>
+                    <% end %>
+                 <div class="text-center dark:text-white mt-8">
+                <div class="inline-block text-sm text-primary dark:text-primary-dark hover:text-opacity-75">
+                  <%= render "users/shared/links" %>
+                </div>
+              </div>
+
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

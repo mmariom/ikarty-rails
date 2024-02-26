@@ -1,0 +1,84 @@
+
+ <%= render "shared/errors", object: @card %>
+<%= turbo_frame_tag "modal" %>
+
+<div x-data="{ showModal: false }">
+    <div class="panel lg:row-start-3 lg:col-start-2">
+        <div class="flex items-center justify-between mb-5">
+          <div class>
+
+                    <h5 class="font-semibold text-lg dark:text-white-light">
+                Pridajte novu kartu
+
+            </h5>
+                  
+          </div>
+    
+ 
+
+
+        </div>
+        <div class="mb-5">
+          <%= form_with model: @card, url: pridat_path, method: :post, class: "space-y-5", data: { turbo: false } do |f| %>
+
+  <%= hidden_field_tag :authenticity_token, form_authenticity_token %>
+  
+  <div>
+    <%= f.label :unique_key, "ID karty:" %>
+    <%= f.text_field :unique_key, placeholder: "ID karty zistite naskenovanim QR kodu.", class: "form-input" %>
+  </div>
+
+  <div>
+    <%= f.label :location, "Názov:" %>
+    <%= f.text_field :location, placeholder: "napríklad: Prevádzka Štumerova", class: "form-input" %>
+  </div>
+
+  <div>
+    <%= f.label :destination_url, "URL adresa presmerovania:" %>
+<%= f.text_field :destination_url, placeholder: "https://", class: "form-input"%>
+  </div>
+
+  <%= f.submit "Aktualizovať", class: "btn btn-primary !mt-6" %>
+<% end %>
+
+
+
+            <!-- Button to trigger modal -->
+        </div>
+
+    </div>
+
+  
+
+</div>
+
+
+<script>
+    document.addEventListener("alpine:init", () => {
+        Alpine.data("form", () => ({
+            // highlightjs
+            codeArr: [],
+            toggleCode(name) {
+                if (this.codeArr.includes(name)) {
+                    this.codeArr = this.codeArr.filter((d) => d != name);
+                } else {
+                    this.codeArr.push(name);
+
+                    setTimeout(() => {
+                        document.querySelectorAll('pre.code').forEach(el => {
+                            hljs.highlightElement(el);
+                        });
+                    });
+                }
+            },
+            get searchResults() {
+                return this.items.filter(item => {
+                    return item.name.toLowerCase().includes(this.search.toLowerCase()) || item.email.toLowerCase().includes(this.search.toLowerCase()) || item.status.toLowerCase().includes(this.search.toLowerCase());
+                });
+            }
+        }));
+    });
+
+
+    
+</script>

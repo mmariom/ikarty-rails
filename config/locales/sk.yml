@@ -1,0 +1,55 @@
+sk:
+  errors:
+    messages:
+      blank: "nemôže byť prázdne"
+      confirmation: "nezhoduje sa"
+      taken: "už je registrovaný"
+      not_found: "nebol nájdený"
+      not_unique: "nie je jedinečný"
+      too_short: "je príliš krátke (minimálny počet znakov je %{count})"
+      too_long: "je príliš dlhé (maximálny počet znakov je %{count})"
+      invalid_email_address: "musí byť platná emailová adresa"
+
+
+
+  activerecord:
+    attributes:
+      user:
+        name: "Meno"
+        email: "E-mail"
+        password: "Heslo"
+        password_confirmation: "Potvrdenie hesla"
+      card:
+        destination_url: "URL adresa presmerovania"
+    errors:
+      models:
+        user:
+          attributes:
+            email:
+              blank: "je povinný údaj."
+              taken: "už je registrovaný."
+            invalid: "musí byť platná emailová adresa"
+
+            password:
+              blank: "je povinný údaj."
+            password_confirmation:
+              confirmation: "sa nezhoduje."
+
+
+
+
+  devise:
+    failures:
+      already_authenticated: "Už ste prihlásený."
+      unauthenticated: "Musíte sa prihlásiť alebo zaregistrovať, aby ste mohli pokračovať."
+    registrations:
+      signed_up: "Úspešne ste sa zaregistrovali."
+      updated: "Váš účet bol úspešne aktualizovaný."
+      signed_up_but_unconfirmed: "Správa s pokynmi na potvrdenie vášho účtu bola odoslaná na váš e-mail."
+      signed_up_but_locked: "Váš účet je zamknutý."
+      signed_up_but_inactive: "Registrácia bola úspešná, ale váš účet nie je aktívny."
+
+  helpers:
+    label:
+      user:
+        remember_me: "Zapamätať si ma"
