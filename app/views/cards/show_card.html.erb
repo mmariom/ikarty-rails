@@ -9,6 +9,7 @@
                 <span style="color: green;"><%= @card.unique_key %></span>
 
             </h5>
+            
                    <button @click="showModal = true" class="btn btn-danger md:text-base text-sm md:px-4 px-2 py-1">
                          <svg width="20" height="20" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg" class="h-4 w-4 md:h-5 md:w-5">
                           <path d="M20.5001 6H3.5" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"></path>
@@ -23,14 +24,15 @@
 
 
         </div>
+        
         <div class="mb-5">
-            <form action="<%= upravit_path(@card) %>" method="post" class="space-y-5">
+            <form action="<%= upravit_path(@card) %>" method="patch" class="space-y-5">
                 <input type="hidden" name="_method" value="patch">
                 <%= hidden_field_tag :authenticity_token, form_authenticity_token %>
 
                 <div>
                     <label for="card_location">Názov:</label>
-                    <input id="card_location" type="text" name="card[location]" placeholder="napríklad: Prevádzka Štumerova" class="form-input" value="<%= @card.location %>" />
+                    <input id="card_location" type="text" name="card[location]" placeholder="napr: Prevádzka Štumerova" class="form-input" value="<%= @card.location %>" />
                 </div>
                 <div>
                     <label for="card_destination_url">URL adresa presmerovania:</label>

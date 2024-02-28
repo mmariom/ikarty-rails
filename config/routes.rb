@@ -44,12 +44,19 @@ Rails.application.routes.draw do
   devise_scope :user do
     root to: 'users/sessions#new'
     get 'registracia', to: 'users/registrations#new'
+    get 'profil', to: 'users/registrations#edit', as: :profil
+    put 'profil', to: 'users/registrations#update'
 
   end
   
   # Additional routes
   get 'dashboard', to: 'cards#my_cards'
-  post 'pridat', to: 'cards#claim'
+  post 'claim', to: 'cards#claim'
+  
+
+  get 'read', to: 'redirect#read'
+
+
   
   get 'pridat', to: 'cards#new_card_claim'
   get 'upravit/:unique_key', to: 'cards#show_card', as: :show

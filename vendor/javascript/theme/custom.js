@@ -228,5 +228,65 @@
                 this.sidebar = !this.sidebar;
             },
         });
+
+        Alpine.data("basic", () => ({
+            datatable: null,
+            init() {
+              this.loadDataTable();
+            },
+            loadDataTable() {
+              this.refreshData(); // Initial data load via AJAX
+            },
+            refreshData() {
+              fetch('/cards_data')
+                .then(response => response.json())
+                .then(data => {
+                  const editBasePath = '/upravit/'; // Adjust based on your actual edit path
+                  const deleteBasePath = '/odstranit/'; // Adjust based on your actual delete path
+                  const cardData = data.map(card => [
+                    card.unique_key,
+                    truncateText(card.location, 35), // Truncate "Názov" to 35 characters
+                    truncateText(card.destination_url, 90),
+                      `<a href='${editBasePath}${card.unique_key}' class='edit-btn'>
+                       <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg" class="w-6 h-6">
+                       <path opacity="0.5" d="M3.27489 15.2957C2.42496 14.1915 2 13.6394 2 12C2 10.3606 2.42496 9.80853 3.27489 8.70433C4.97196 6.49956 7.81811 4 12 4C16.1819 4 19.028 6.49956 20.7251 8.70433C21.575 9.80853 22 10.3606 22 12C22 13.6394 21.575 14.1915 20.7251 15.2957C19.028 17.5004 16.1819 20 12 20C7.81811 20 4.97196 17.5004 3.27489 15.2957Z" stroke="currentColor" stroke-width="1.5"></path>
+                       <path d="M15 12C15 13.6569 13.6569 15 12 15C10.3431 15 9 13.6569 9 12C9 10.3431 10.3431 9 12 9C13.6569 9 15 10.3431 15 12Z" stroke="currentColor" stroke-width="1.5"></path>
+                        </svg>
+                      </a> 
+                    `
+                  ]);
+                  // Check if datatable is already initialized
+                  if (this.datatable) {
+                    // Clear and reload the datatable with new data
+                    this.datatable.clear().rows.add(cardData).draw();
+                  } else {
+                    // Initialize the DataTable with the fetched data
+                    this.datatable = new simpleDatatables.DataTable('#myTable', {
+                      data: {
+                        headings: ["ID karty", "Názov", "URL adresa presmerovania", "Zobraziť"],
+                        data: cardData
+                      },
+                      sortable: false,
+                      searchable: true,
+                      perPage: 10,
+                      perPageSelect: [10, 20, 30, 50, 100],
+                      firstLast: true,
+                      firstText: '<svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg" class="w-4.5 h-4.5 rtl:rotate-180"> <path d="M13 19L7 12L13 5" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/> <path opacity="0.5" d="M16.9998 19L10.9998 12L16.9998 5" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/> </svg>',
+                      lastText: '<svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg" class="w-4.5 h-4.5 rtl:rotate-180"> <path d="M11 19L17 12L11 5" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/> <path opacity="0.5" d="M6.99976 19L12.9998 12L6.99976 5" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/> </svg>',
+                      prevText: '<svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg" class="w-4.5 h-4.5 rtl:rotate-180"> <path d="M15 5L9 12L15 19" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/> </svg>',
+                      nextText: '<svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg" class="w-4.5 h-4.5 rtl:rotate-180"> <path d="M9 5L15 12L9 19" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/> </svg>',
+                      labels: {
+                        perPage: "{select}"
+                      },
+                      layout: {
+                        top: "{search}",
+                        bottom: "{info}{select}{pager}"
+                      }
+                    
+                    });
+                  }
+                });
+            }
+          }));
     });
 })();

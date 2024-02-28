@@ -1,7 +1,7 @@
 sk:
   errors:
     messages:
-      blank: "nemôže byť prázdne"
+      blank: "nemôže byť prázdna"
       confirmation: "nezhoduje sa"
       taken: "už je registrovaný"
       not_found: "nebol nájdený"
@@ -19,8 +19,10 @@ sk:
         email: "E-mail"
         password: "Heslo"
         password_confirmation: "Potvrdenie hesla"
+        current_password: "Aktuálne heslo"
       card:
         destination_url: "URL adresa presmerovania"
+        location: "Názov"
     errors:
       models:
         user:
@@ -28,7 +30,9 @@ sk:
             email:
               blank: "je povinný údaj."
               taken: "už je registrovaný."
-            invalid: "musí byť platná emailová adresa"
+              invalid: "musí byť platná emailová adresa"
+            current_password:
+              invalid: 'je neplatné.'
 
             password:
               blank: "je povinný údaj."

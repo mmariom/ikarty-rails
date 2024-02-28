@@ -1,0 +1,33 @@
+<!-- app/views/cards/read.html.erb -->
+<% if flash[:alert] %>
+  <!-- Displaying the error message with logo -->
+  <div class="redirecting-page" style="text-align: center; ">
+    <%= image_tag 'logo.png', alt: 'Your Logo', style: 'width: 200px;' %> <!-- Adjust logo size as needed -->
+    <div class="error-message" style="margin-top: 20px; color: red; background-color: #FFCCCC; padding: 20px; border-radius: 5px;">
+      <p><%= flash[:alert] %></p>
+    </div>
+  </div>
+<% elsif @card %>
+  <div class="redirecting-page" style="text-align: center;">
+    <%= image_tag 'logo.png', alt: 'ikarty.eu Logo', class: 'logo', style: 'width: 200px;' %>
+
+    <svg class="checkmark" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 52 52"><circle class="checkmark__circle" cx="26" cy="26" r="25" fill="none"/><path class="checkmark__check" fill="none" d="M14.1 27.2l7.1 7.2 16.7-16.8"/></svg>
+
+    <div class="redirecting-text">Prebieha presmerovanie<span class="dots"></span></div>
+
+    <div class="card-id">ID karty: <%= @card.unique_key %></div>
+  </div>
+
+  <script>
+    setTimeout(function() {
+      window.location.href = "<%= @card.destination_url %>";
+    }, 2500);
+
+    var dots = document.querySelector('.dots');
+    var count = 0;
+    setInterval(function() {
+      dots.textContent = ".".repeat(count % 4);
+      count++;
+    }, 500);
+  </script>
+<% end %>

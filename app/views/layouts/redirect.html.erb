@@ -1,0 +1,112 @@
+
+
+<!DOCTYPE html>
+<html lang="en" dir="ltr">
+
+<head>
+    <meta charset='utf-8' />
+    <meta http-equiv='X-UA-Compatible' content='IE=edge' />
+    <title>Presmerovanie - ikarty.eu </title>
+
+    <meta name='viewport' content='width=device-width, initial-scale=1' />
+    <link rel="icon" type="image/svg" href="/assets/favicon.png" />
+
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link href="https://fonts.googleapis.com/css2?family=Nunito:wght@400;500;600;700;800&display=swap" rel="stylesheet" />
+
+
+    <%= csrf_meta_tags %>
+    <%= csp_meta_tag %>
+
+    <%= stylesheet_link_tag "application", "data-turbo-track": "reload" %>
+    <%= javascript_importmap_tags %> 
+    
+
+    <style>
+        body, html {
+            height: 100%;
+            margin: 0;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            font-family: 'Nunito', sans-serif;
+        }
+        .redirecting-page {
+            text-align: center;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+        }
+        .logo {
+            max-width: 200px; /* Adjust this value as needed */
+            height: auto;
+        }
+        .card-id {
+            font-size: 0.7rem; /* Smaller font for the card ID */
+            margin-top: 10px;
+        }
+
+        .checkmark__circle {
+        stroke-dasharray: 166;
+        stroke-dashoffset: 166;
+        stroke-width: 2;
+        stroke-miterlimit: 10;
+        stroke: green;
+        fill: none;
+        animation: stroke .9s cubic-bezier(0.65, 0, 0.45, 1) forwards;
+        }
+
+        .checkmark {
+        width: 56px;
+        height: 56px;
+        border-radius: 50%;
+        display: block;
+        stroke-width: 2;
+        stroke: green;
+        stroke-miterlimit: 10;
+        margin: 10% auto;
+        box-shadow: inset 0px 0px 0px #7ac142;
+        animation: fill 0.7s ease-in-out .9s forwards, scale .3s ease-in-out .9s both;
+        }
+
+        .checkmark__check {
+        transform-origin: 50% 50%;
+        stroke-dasharray: 48;
+        stroke-dashoffset: 48;
+        animation: stroke 0.3s cubic-bezier(0.65, 0, 0.45, 1) 1s forwards;
+        }
+
+        @keyframes stroke {
+        100% {
+            stroke-dashoffset: 0;
+        }
+        }
+        @keyframes scale {
+        0%, 100% {
+            transform: none;
+        }
+        50% {
+            transform: scale3d(1.1, 1.1, 1);
+        }
+        }
+        @keyframes fill {
+        100% {
+            box-shadow: inset 0px 0px 0px 30px #fff;
+        }
+        }
+    </style>
+
+
+</head>
+
+<body>
+    <div>
+        <%= yield %>
+    </div>
+</body>
+
+
+
+
+</html>

@@ -1,6 +1,5 @@
 class CardsController < ApplicationController
-  before_action :authenticate_user!, only: [:new_card_claim, :claim, :unclaim, :my_cards]
-
+  before_action :authenticate_user!
 
   def my_cards
     @cards = current_user.cards
@@ -49,6 +48,7 @@ class CardsController < ApplicationController
     end
   end
 
+
   def cards_json
     @cards = current_user.cards
     render json: @cards.to_json(only: [:unique_key, :location, :destination_url])
@@ -74,26 +74,63 @@ class CardsController < ApplicationController
   #   redirect_to dashboard_path
   # end
 
-  def claim
-    @card = Card.find_by(unique_key: params[:card][:unique_key])
+  # def claim
+  #   @card = Card.find_by(unique_key: params[:card][:unique_key])
     
-    if @card.present?
-      # Prepare update parameters, including setting the user to the current_user
-      update_params = card_params.merge(user: current_user)
+  #   if @card.present?
+  #     # Prepare update parameters, including setting the user to the current_user
+  #     update_params = card_params.merge(user: current_user)
       
-      if @card.update(update_params)
-        flash[:notice] = "Karta bola úspešne pridaná!"
-        redirect_to dashboard_path
-      else
-        # Validation errors from model
-        flash[:error] = @card.errors.full_messages.join(", ")
-        redirect_to pridat_path
-      end
-    else
-      flash[:alert] = "Nenašla sa žiadna karta s týmto ID!"
-      redirect_to pridat_path 
+  #     if @card.update(update_params)
+  #       flash[:notice] = "Karta bola úspešne pridaná!"
+  #       redirect_to dashboard_path
+  #     else
+  #       # Validation errors from model
+  #       render 'new_card_claim', status: :unprocessable_entity
+  #     end
+  #   else
+  #     # No card found with the given unique_key
+  #     flash.now[:alert] = "Nenašla sa žiadna karta s týmto ID!"
+  #     @card = Card.new # Ensure the form can render without errors
+  #     render 'new_card_claim', status: :unprocessable_entity
+  #   end
+  # end
+
+  def claim
+  @card = Card.find_by(unique_key: params[:card][:unique_key])
+
+  if @card.present?
+    # Check if the card is already claimed by another user
+    if @card.user.present? && @card.user != current_user
+      flash[:alert] = "Túto kartu si už pridal iný používateľ!"
+      redirect_to pridat_path # Adjust the redirection path as needed
+      return # Prevent further execution
     end
+
+    if @card.user == current_user
+      flash[:alert] = "Túto kartu si už pridal!"
+      redirect_to pridat_path 
+      return
+    end
+
+    # Prepare update parameters, including setting the user to the current_user
+    update_params = card_params.merge(user: current_user)
+
+    if @card.update(update_params)
+      flash[:notice] = "Karta bola úspešne pridaná!"
+      redirect_to dashboard_path
+    else
+      # Validation errors from model
+      render 'new_card_claim', status: :unprocessable_entity
+    end
+  else
+    # No card found with the given unique_key
+    flash.now[:alert] = "Nenašla sa žiadna karta s týmto ID!"
+    @card = Card.new # Ensure the form can render without errors
+    render 'new_card_claim', status: :unprocessable_entity
   end
+end
+
   
   
     
@@ -109,6 +146,8 @@ class CardsController < ApplicationController
     end
   end
 
+
+  
   private
   def update_card_params
     params.require(:card).permit(:location, :destination_url)

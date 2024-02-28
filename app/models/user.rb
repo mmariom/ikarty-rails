@@ -7,9 +7,11 @@ class User < ApplicationRecord
 
   has_many :cards, dependent: :destroy
 
-  validates :name, presence: true
+  validates :name, presence: true, length: { maximum:64}
+
+  # validates :password, presence: true, length: { maximum: 50 }
   
-  validates :email, format: { with: /\A[\w+\-.]+@[a-z\d\-.]+\.[a-z]+\z/i, message: 'must be a valid email address' }
+  validates :email, format: { with: /\A[\w+\-.]+@[a-z\d\-.]+\.[a-z]+\z/i }
 
 
 end

@@ -2,8 +2,10 @@
 
 class Users::RegistrationsController < Devise::RegistrationsController
   before_action :configure_sign_up_params, only: [:create]
-  # before_action :configure_account_update_params, only: [:update]
-  layout 'auth'
+  before_action :configure_account_update_params, only: [:update]
+  layout :determine_layout
+
+
 
 
   # GET /resource/sign_up
@@ -43,9 +45,18 @@ class Users::RegistrationsController < Devise::RegistrationsController
   # end
 
   # PUT /resource
-  # def update
-  #   super
-  # end
+
+  def update
+    super do |resource|
+      if resource.errors.empty?
+        # Directly specify the redirect path here, for example:
+        redirect_to profil_path, notice: 'Profil bol úspešne aktualizovaný!' and return
+      end
+      # No need for an else block, as Devise handles the rendering of :edit view if there are validation errors
+    end
+  end
+  
+  
 
   # DELETE /resource
   # def destroy
@@ -73,6 +84,14 @@ class Users::RegistrationsController < Devise::RegistrationsController
   #   devise_parameter_sanitizer.permit(:account_update, keys: [:attribute])
   # end
 
+  protected
+
+# If you have extra params to permit, append them to the sanitizer.
+  def configure_account_update_params
+    devise_parameter_sanitizer.permit(:account_update, keys: [:name, :password, :password_confirmation, :current_password])
+  end
+
+
   def configure_sign_up_params
     devise_parameter_sanitizer.permit(:sign_up, keys: [:name, :email, :password, :password_confirmation])
   end
@@ -82,10 +101,26 @@ class Users::RegistrationsController < Devise::RegistrationsController
     dashboard_path
   end
 
+  # def after_update_path_for(resource)
+  #   profile_path
+  # end
+
   # The path used after sign up for inactive accounts.
   # def after_inactive_sign_up_path_for(resource)
   #   super(resource)
   # end
+
+
+  private
+
+  def determine_layout
+    if action_name == 'edit'
+      'application'
+    else
+      'auth'
+    end
+  end
+
 end
 
 

@@ -2,15 +2,20 @@
  <%= render "shared/errors", object: @card %>
 <%= turbo_frame_tag "modal" %>
 
+
 <div x-data="{ showModal: false }">
     <div class="panel lg:row-start-3 lg:col-start-2">
         <div class="flex items-center justify-between mb-5">
           <div class>
 
-                    <h5 class="font-semibold text-lg dark:text-white-light">
+             <h5 class="font-semibold text-lg dark:text-white-light">
                 Pridajte novu kartu
-
             </h5>
+
+           <p class="mt-3">
+            Pozrite si náš návod, ako správne pridať kartu. <a href="https://google.com" target="_blank" style="color: red">Návod najdete tu</a>
+            </p>
+
                   
           </div>
     
@@ -19,27 +24,27 @@
 
         </div>
         <div class="mb-5">
-          <%= form_with model: @card, url: pridat_path, method: :post, class: "space-y-5", data: { turbo: false } do |f| %>
+          <%= form_with model: @card, url: claim_path, method: :post, class: "space-y-5", data: { turbo: true } do |f| %>
 
-  <%= hidden_field_tag :authenticity_token, form_authenticity_token %>
-  
-  <div>
-    <%= f.label :unique_key, "ID karty:" %>
-    <%= f.text_field :unique_key, placeholder: "ID karty zistite naskenovanim QR kodu.", class: "form-input" %>
-  </div>
+            <%= hidden_field_tag :authenticity_token, form_authenticity_token %>
+            
+            <div>
+              <%= f.label :unique_key, "ID karty:" %>
+              <%= f.text_field :unique_key, placeholder: "ID karty zistite naskenovanim QR kodu.", class: "form-input" %>
+            </div>
 
-  <div>
-    <%= f.label :location, "Názov:" %>
-    <%= f.text_field :location, placeholder: "napríklad: Prevádzka Štumerova", class: "form-input" %>
-  </div>
+            <div>
+              <%= f.label :location, "Názov:" %>
+              <%= f.text_field :location, placeholder: "napr: Prevádzka Štumerova", class: "form-input" %>
+            </div>
 
-  <div>
-    <%= f.label :destination_url, "URL adresa presmerovania:" %>
-<%= f.text_field :destination_url, placeholder: "https://", class: "form-input"%>
-  </div>
+            <div>
+              <%= f.label :destination_url, "URL adresa presmerovania:" %>
+          <%= f.text_field :destination_url, placeholder: "https://", class: "form-input"%>
+            </div>
 
-  <%= f.submit "Aktualizovať", class: "btn btn-primary !mt-6" %>
-<% end %>
+            <%= f.submit "Aktualizovať", class: "btn btn-primary !mt-6" %>
+          <% end %>
 
 
 
