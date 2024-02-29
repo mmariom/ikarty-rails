@@ -67,3 +67,9 @@ group :test do
 end
 
 gem "devise", "~> 4.9"
+
+gem 'whenever', require: false
+
+gem 'faker'
+
+

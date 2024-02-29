@@ -20,7 +20,14 @@ class CardsController < ApplicationController
     # Checks if the card belongs to the current_user
     if @card.user == current_user
       # If yes, render the show view
-      render :show_card
+    @yesterday_summary = @card.daily_visit_summaries.where(date: Date.yesterday)
+    @last_7_days_summary = @card.daily_visit_summaries.where(date: 8.days.ago..Date.yesterday)
+    @last_14_days_summary = @card.daily_visit_summaries.where(date: 15.days.ago..Date.yesterday)
+    @last_30_days_summary = @card.daily_visit_summaries.where(date: 31.days.ago..Date.yesterday)
+
+    # render :show_card
+
+
     else
       # If not, redirect them with an error message
       redirect_to dashboard_path, alert: "Nie ste oprávnený zobraziť túto kartu !"
@@ -40,6 +47,8 @@ class CardsController < ApplicationController
       else
         # If update fails, render the edit form again
         render :show_card, status: :unprocessable_entity
+        # redirect_to show_path(@card)
+
       
       end
     else
@@ -134,17 +143,39 @@ end
   
   
     
+  # def unclaim
+  #   @card = Card.find_by(unique_key: params[:unique_key])
+
+  #   if @card.user == current_user
+  #     @card.update_columns(location: nil, destination_url: 'https://ikarty.eu/navod',user_id: nil)
+  #     redirect_to(dashboard_path, status:  :see_other, notice: 'Karta bola úspešne odstránená.')
+      
+  #   else
+  #     redirect_to cards_path, alert: 'Nemáte oprávnenie na odstránenie tejto karty.'
+  #   end
+  # end
+
   def unclaim
     @card = Card.find_by(unique_key: params[:unique_key])
-
+  
     if @card.user == current_user
-      @card.update_columns(location: nil, destination_url: nil,user_id: nil)
-      redirect_to(dashboard_path, status:  :see_other, notice: 'Karta bola úspešne odstránená.')
-      
+      ActiveRecord::Base.transaction do
+        # Update the card details
+        @card.update_columns(location: nil, destination_url: 'https://ikarty.eu/navod', user_id: nil)
+  
+        # Delete associated DailyVisitSummary records
+        @card.daily_visit_summaries.delete_all
+  
+        # Delete associated visits
+        @card.visits.delete_all
+      end
+  
+      redirect_to(dashboard_path, status: :see_other, notice: 'Karta bola úspešne odstránená.')
     else
       redirect_to cards_path, alert: 'Nemáte oprávnenie na odstránenie tejto karty.'
     end
   end
+  
 
 
   

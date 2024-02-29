@@ -40,9 +40,9 @@ class Users::RegistrationsController < Devise::RegistrationsController
   end
 
   # GET /resource/edit
-  # def edit
-  #   super
-  # end
+  def edit
+    super
+  end
 
   # PUT /resource
 
@@ -51,6 +51,8 @@ class Users::RegistrationsController < Devise::RegistrationsController
       if resource.errors.empty?
         # Directly specify the redirect path here, for example:
         redirect_to profil_path, notice: 'Profil bol úspešne aktualizovaný!' and return
+      else
+        redirect_to profil_path, alert: resource.errors.full_messages.join(', ') and return
       end
       # No need for an else block, as Devise handles the rendering of :edit view if there are validation errors
     end
