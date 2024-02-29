@@ -5,13 +5,14 @@
             <!-- Simple Counter -->
             <div class="panel">
                 <div class="flex items-center justify-between mb-5">
-                    <h5 class="font-semibold text-lg dark:text-white-light">Počet presmerovaní (za posledný deň a posledných 7,14,30 dní )</h5>
+                    <h5 class="font-semibold text-lg dark:text-white-light">Počet presmerovaní ( )</h5>
         
                 </div>
                 <div class="mb-5 grid grid-cols-4 justify-items-center gap-3 max-w-[900px] mx-auto">
                     <div>
                         <div class="w-[70px] h-[70px] sm:w-[100px] sm:h-[100px] shadow-[1px_2px_12px_0_rgba(31,45,61,0.10)] rounded border border-[#e0e6ed] dark:border-[#1b2e4b] flex justify-center flex-col">
                             <h1 class="text-primary text-xl sm:text-3xl text-center" id="counter1">
+                                <%= @yesterday_summary.sum(:visit_count) %> 
                             </h1>
                         </div>
                         <h4 class="text-[#3b3f5c] text-xs sm:text-[15px] mt-4 text-center dark:text-white-dark font-semibold">včera</h4>
