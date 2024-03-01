@@ -40,22 +40,24 @@ class Users::RegistrationsController < Devise::RegistrationsController
   end
 
   # GET /resource/edit
-  # def edit
-  #   super
-  # end
+  def edit
+    super
+  end
 
   # PUT /resource
 
+  
   def update
     super do |resource|
       if resource.errors.empty?
         # Directly specify the redirect path here, for example:
         redirect_to profil_path, notice: 'Profil bol úspešne aktualizovaný!' and return
+      else
+        render 'edit' , status: :unprocessable_entity and return
       end
       # No need for an else block, as Devise handles the rendering of :edit view if there are validation errors
     end
   end
-  
   
 
   # DELETE /resource
@@ -114,7 +116,7 @@ class Users::RegistrationsController < Devise::RegistrationsController
   private
 
   def determine_layout
-    if action_name == 'edit'
+    if action_name == 'edit' || action_name == 'update'
       'application'
     else
       'auth'

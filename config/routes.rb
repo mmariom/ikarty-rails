@@ -65,6 +65,9 @@ Rails.application.routes.draw do
   
   # Example for fetching cards data
   get 'cards_data', to: 'cards#cards_json'
+
+  match '*unmatched_route', to: 'errors#not_found', via: :all
+
 end
 
 

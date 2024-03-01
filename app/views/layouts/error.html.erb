@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html lang="en" dir="ltr">
+
+<head>
+    <meta charset='utf-8'>
+    <meta http-equiv='X-UA-Compatible' content='IE=edge'>
+    <title>Stránka sa nenašla ! - ikarty.eu</title>
+    <meta name='viewport' content='width=device-width, initial-scale=1'>
+    <%= favicon_link_tag 'favicon.png', rel: 'icon', type: 'image/png' %>
+    
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Nunito:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+
+
+
+
+    <%= csrf_meta_tags %>
+    <%= csp_meta_tag %>
+
+    <%= stylesheet_link_tag "application", "data-turbo-track": "reload" %>
+    <%= javascript_importmap_tags %> 
+
+
+       
+
+        <%= javascript_include_tag 'theme/perfect-scrollbar.min', 'data-turbo-eval': "false" %>
+        <%= javascript_include_tag 'theme/popper.min', defer: true, 'data-turbo-eval': "false" %>
+        <%= javascript_include_tag 'theme/tippy-bundle.umd.min', defer: true, 'data-turbo-eval': "false" %>
+        <%= javascript_include_tag 'theme/sweetalert.min', defer: true, 'data-turbo-eval': "false" %>
+
+
+</head>
+
+
+<body x-data="main" class="antialiased relative font-nunito text-sm font-normal overflow-x-hidden" :class="[ $store.app.sidebar ? 'toggle-sidebar' : '', $store.app.theme === 'dark' || $store.app.isDarkMode ?  'dark' : '', $store.app.menu, $store.app.layout,$store.app.rtlClass]">
+
+
+
+
+
+    <div class="main-container text-black dark:text-white-dark min-h-screen">
+
+        <%= yield %>
+    </div>
+
+
+
+
+   
+<%= javascript_include_tag 'theme/alpine.min', defer: true, 'data-turbo-eval': "false" %>
+<%= javascript_include_tag 'theme/alpine-persist.min', 'data-turbo-eval': "false" %>
+<%= javascript_include_tag 'theme/alpine-collaspe.min', 'data-turbo-eval': "false" %>
+<%= javascript_include_tag 'theme/alpine-ui.min', defer: true , 'data-turbo-eval': "false" %>
+<%= javascript_include_tag 'theme/alpine-focus.min', defer: true, 'data-turbo-eval': "false"  %>
+<%= javascript_include_tag 'theme/custom', 'data-turbo-eval': "false"  %>
+
+
+</body>
+
+</html>
