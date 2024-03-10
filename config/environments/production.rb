@@ -97,4 +97,27 @@ Rails.application.configure do
   # ]
   # Skip DNS rebinding protection for the default health check endpoint.
   # config.host_authorization = { exclude: ->(request) { request.path == "/up" } }
+
+
+  # config/environments/production.rb
+
+# SMTP settings for SendGrid
+config.action_mailer.delivery_method = :smtp
+config.action_mailer.smtp_settings = {
+  user_name: Rails.application.credentials.dig(:mail, :user_name),
+  password: Rails.application.credentials.dig(:mail, :password),
+  domain: 'ikarty.eu',
+  address: 'email-smtp.eu-west-1.amazonaws.com',
+  port: 587,
+  authentication: :login,
+  enable_starttls_auto: true, # Enable TLS
+}
+
+
+# Default URL options
+# Ensure this points to your actual application's host, especially for email link generation (e.g., for password reset)
+config.action_mailer.default_url_options = { host: 'app.ikarty.eu', protocol: 'https' }
+
+
+
 end

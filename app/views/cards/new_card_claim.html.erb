@@ -13,7 +13,7 @@
             </h5>
 
            <p class="mt-3">
-            Pozrite si náš návod, ako správne pridať kartu. <a href="https://google.com" target="_blank" style="color: red">Návod najdete tu</a>
+            Pozrite si náš návod, ako správne pridať kartu. <a href="https://ikarty.eu/pages/navod-pridanie-karty" target="_blank" style="color: red">Návod najdete tu</a>
             </p>
 
                   
@@ -30,7 +30,7 @@
             
             <div>
               <%= f.label :unique_key, "ID karty:" %>
-              <%= f.text_field :unique_key, placeholder: "ID karty zistite naskenovanim QR kodu.", class: "form-input" %>
+              <%= f.text_field :unique_key, placeholder: "ID karty nájdete na spodku zakúpeného produktu alebo skenovaním QR kódu.", class: "form-input" %>
             </div>
 
             <div>
@@ -40,7 +40,7 @@
 
             <div>
               <%= f.label :destination_url, "URL adresa presmerovania:" %>
-          <%= f.text_field :destination_url, placeholder: "https://", class: "form-input"%>
+          <%= f.text_field :destination_url, placeholder: "Zadajte adresu vrátane https:// alebo http://", class: "form-input"%>
             </div>
 
             <%= f.submit "Aktualizovať", class: "btn btn-primary !mt-6" %>

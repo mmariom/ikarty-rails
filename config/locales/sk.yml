@@ -9,6 +9,9 @@ sk:
       too_short: "je príliš krátke (minimálny počet znakov je %{count})"
       too_long: "je príliš dlhé (maximálny počet znakov je %{count})"
       invalid_email_address: "musí byť platná emailová adresa"
+      invalid: "je neplatný"
+      invalid_url: "musí byť platná URL adresa"  # Add this line for the URL error message
+
 
 
 
@@ -20,11 +23,16 @@ sk:
         password: "Heslo"
         password_confirmation: "Potvrdenie hesla"
         current_password: "Aktuálne heslo"
+        reset_password_token: "Token pre obnovenie hesla" 
       card:
         destination_url: "URL adresa presmerovania"
         location: "Názov"
     errors:
       models:
+        card:
+            attributes:
+              destination_url:
+                invalid: "musí byť platná URL adresa"  # Use this for invalid URL errors
         user:
           attributes:
             email:
@@ -33,6 +41,8 @@ sk:
               invalid: "musí byť platná emailová adresa"
             current_password:
               invalid: 'je neplatné.'
+            reset_password_token:
+              invalid: "je neplatný"
 
             password:
               blank: "je povinný údaj."

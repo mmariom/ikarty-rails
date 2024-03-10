@@ -30,6 +30,16 @@
         <%= javascript_include_tag 'theme/sweetalert.min', defer: true, 'data-turbo-eval': "false" %>
 
 
+        <!-- Google tag (gtag.js) -->
+        <script async src="https://www.googletagmanager.com/gtag/js?id=G-PQSQL3ZW90"></script>
+        <script>
+        window.dataLayer = window.dataLayer || [];
+        function gtag(){dataLayer.push(arguments);}
+        gtag('js', new Date());
+
+        gtag('config', 'G-PQSQL3ZW90');
+        </script>
+
 </head>
 
 
@@ -106,6 +116,7 @@
 <%= javascript_include_tag 'theme/alpine-ui.min', defer: true , 'data-turbo-eval': "false" %>
 <%= javascript_include_tag 'theme/alpine-focus.min', defer: true, 'data-turbo-eval': "false"  %>
 <%= javascript_include_tag 'theme/custom', 'data-turbo-eval': "false"  %>
+
 
 
 </body>

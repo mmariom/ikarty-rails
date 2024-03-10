@@ -52,6 +52,11 @@
               </div>
             </div>
 
+            <div class="text-sm text-white-dark mt-4 mb-6">
+              Kliknutím na "Registrovať" súhlasím so spracovaním osobných údajov a s nasledujúcimi 
+              <%= link_to "obchodnými podmienkami", "https://ikarty.eu/pages/vop", class: "text-primary underline", target: "_blank" %>.
+            </div>
+
             <div>
               <%= f.submit "Registrovať", class: "btn btn-gradient !mt-6 w-full border-0 uppercase shadow-[0_10px_20px_-10px_rgba(67,97,238,0.44)]" %>
             </div>
@@ -62,6 +67,9 @@
               <%= render "users/shared/links" %>
             </div>
           </div>
+                <p class="block text-white-dark text-center dark:text-white mt-8">
+                ikarty.eu nie je súčasťou a nie je ani spojené s Google ani Google Inc. Google je ochranná známka patriaca Google, Inc.
+                </p>
         </div>
       </div>
     </div>

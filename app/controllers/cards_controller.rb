@@ -87,7 +87,7 @@ class CardsController < ApplicationController
 
   def cards_json
     @cards = current_user.cards
-    render json: @cards.to_json(only: [:unique_key, :location, :destination_url])
+    render json: @cards.to_json(only: [:unique_key, :location, :redirect_counter,:destination_url])
   end
 
 
@@ -134,7 +134,7 @@ end
     @card = Card.find_by(unique_key: params[:unique_key])
 
     if @card.user == current_user
-      @card.update_columns(location: nil, destination_url: 'https://ikarty.eu/navod', user_id: nil)
+      @card.update_columns(location: nil, destination_url: 'https://ikarty.eu/pages/zaciname', user_id: nil, redirect_counter: 0)
       redirect_to(dashboard_path, status:  :see_other, notice: 'Karta bola úspešne odstránená.')
       
     else

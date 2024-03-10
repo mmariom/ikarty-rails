@@ -19,9 +19,13 @@
   </div>
 
   <script>
-    setTimeout(function() {
-      window.location.href = "<%= @card.destination_url %>";
-    }, 2500);
+  setTimeout(function() {
+    var decodedUrl = decodeURIComponent(
+      "<%= @card.destination_url %>".replace(/&amp;/g, '&')
+    );
+    window.location.href = decodedUrl;
+  }, 2200);
+      console.log("Redirecting to: <%= @card.destination_url %>");
 
     var dots = document.querySelector('.dots');
     var count = 0;

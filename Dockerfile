@@ -60,3 +60,8 @@ ENTRYPOINT ["/rails/bin/docker-entrypoint"]
 # Start the server by default, this can be overwritten at runtime
 EXPOSE 3000
 CMD ["./bin/rails", "server"]
+
+
+
+
+# docker buildx build --platform linux/amd64 -t mmatejovic/ikeu . --push

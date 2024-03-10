@@ -28,8 +28,9 @@
 Rails.application.routes.draw do
   devise_for :users, controllers: {
     sessions: 'users/sessions',
-    registrations: 'users/registrations'
-    # add other controllers if you have overridden them
+    registrations: 'users/registrations',
+    passwords: 'users/passwords'
+  
   }, path: '', path_names: {
     sign_in: 'prihlasenie',
     sign_out: 'logout',
@@ -40,21 +41,22 @@ Rails.application.routes.draw do
     sign_up: 'sign_up'
   }
 
-  # Define root path
   devise_scope :user do
     root to: 'users/sessions#new'
     get 'registracia', to: 'users/registrations#new'
     get 'profil', to: 'users/registrations#edit', as: :profil
     put 'profil', to: 'users/registrations#update'
-
+    get 'zabudnute-heslo', to: 'users/passwords#new' 
+    post 'zabudnute-heslo', to: 'users/passwords#create'
   end
+  
   
   # Additional routes
   get 'dashboard', to: 'cards#my_cards'
   post 'claim', to: 'cards#claim'
   
-
-  get 'read', to: 'redirect#read'
+  #removed because another server
+  # get 'read', to: 'redirect#read'
 
 
   
