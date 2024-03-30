@@ -1,3 +1,7 @@
+
+<% content_for :title, "Karta #{@card.unique_key} - ikarty.eu" %>
+
+
 <%= render "shared/errors", object: @card %>
 <%= turbo_frame_tag "modal" %>
 

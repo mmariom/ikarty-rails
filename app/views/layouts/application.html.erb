@@ -6,7 +6,9 @@
 <head>
     <meta charset='utf-8' />
     <meta http-equiv='X-UA-Compatible' content='IE=edge' />
-    <title>Zákaznícky portál - ikarty.eu</title>
+    <%# <title>Zákaznícky portál - ikarty.eu</title> %>
+    <title><%= content_for?(:title) ? yield(:title) : "Zákaznícky portál - ikarty.eu" %></title>
+
 
     <meta name='viewport' content='width=device-width, initial-scale=1' />
 

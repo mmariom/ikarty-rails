@@ -1,5 +1,7 @@
 
- <%= render "shared/errors", object: @card %>
+ <% content_for :title, "Pridať novu kartu - ikarty.eu" %>
+
+<%= render "shared/errors", object: @card %>
 <%= turbo_frame_tag "modal" %>
 
 
@@ -43,7 +45,7 @@
           <%= f.text_field :destination_url, placeholder: "Zadajte adresu vrátane https:// alebo http://", class: "form-input"%>
             </div>
 
-            <%= f.submit "Aktualizovať", class: "btn btn-primary !mt-6" %>
+            <%= f.submit "Pridať", class: "btn btn-primary !mt-6" %>
           <% end %>
 
 
